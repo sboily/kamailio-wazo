@@ -59,6 +59,10 @@ Or if you're not in the container
 
     docker inspect kamailio | grep IPAddress | awk -F\" '{print $4}'
 
+To launch kamailio
+
+    kamailio -ddDDe
+
 XiVO configuration
 ------------------
 
