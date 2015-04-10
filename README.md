@@ -43,7 +43,7 @@ Chmod the pgpass file to 600
 Launch kamailio
 
     cd ~kamailio/conf
-    docker run --name kamailio -v $(pwd):/etc/kamailio -p 5060:5060/udp -it quintana/kamailio bash
+    docker run --name kamailio -v $(pwd)/pgpass:/root/.pgpass -v $(pwd):/etc/kamailio -p 5060:5060/udp -it quintana/kamailio bash
 
 The first time you need to init you kamailio database, edit the init.sh before
 launch it.
