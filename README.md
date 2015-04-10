@@ -89,3 +89,10 @@ and network tab.
 Fill the denied address with 0.0.0.0/0.0.0.0 and the allowed address with your
 docker <ip>/255.255.255.255 or your docker subnet (172.17.0.0/255.255.0.0) if you
 do lot of tests. Do not forget to enabled NAT on the default tab.
+
+Provisioning your phone
+-----------------------
+
+If you want to use the xivo provd, please don't forget to add a new template
+line in the Configuration/Provisioning/Template Line with the IP of your
+kamailio installation !
