@@ -2,11 +2,15 @@ This tutorial will guide you on how to install and use kamailio in front of a
 XiVO server.  Please have a XiVO installed and ready before starting. You can
 read the [getting
 started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
-document for more help. This tutorial is inspired by
+document for more help.
+
+This tutorial is inspired by
 http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb
 
 I will be using docker to install kamailio because it's simple to use and fun to
-work with :) (please do not install docker on a XiVO because wheezy does not
+work with :)
+
+(please do not install docker on a XiVO because wheezy does not
 support a kernel version that is recent enough)
 
 Kamailio installation
