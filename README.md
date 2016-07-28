@@ -26,6 +26,8 @@ Connect to your postgres with xivo database.
     postgres> ALTER USER postgres WITH ENCRYPTED PASSWORD '<postgres_password>';
     postgres> exit;
 
+Add your subnet or ip to the file /etc/postgresql/9.4/main/pg_hba.conf.
+
 Edit the pgpass file add the following line. In most cases, the IP address will
 be the same as your xivo. The default port for postgres is 5432.
 
@@ -34,7 +36,7 @@ be the same as your xivo. The default port for postgres is 5432.
 Launch kamailio
 
     cd <kamailio_xivo_repo>/kamailio/
-    docker run --name kamailio -v $(pwd)/pgpass:/root/.pgpass -v $(pwd):/etc/kamailio -p 5060:5060/udp -it quintana/kamailio bash
+    docker run --rm --name kamailio -v $(pwd):/etc/kamailio -p 5060:5060/udp -it quintana/kamailio bash
 
 Before running kamailio for the first time you need to initialize the database.
 Edit the init.sh script and put in the right IP address. You can get your ip
@@ -65,7 +67,7 @@ the asterisk configuration.
 You need to use my specific driver who removed the secret generation from
 xivo-confgend.
 
-Go to xivo/confgend and type:
+Copy xivo/confgend directory to your xivo and type:
 
     python setup.py install
     cp conf/kamailio.yml /etc/xivo-confgend/conf.d
