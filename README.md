@@ -1,36 +1,28 @@
 This tutorial will guide you on how to install and use kamailio in front of a
 XiVO server.  Please have a XiVO installed and ready before starting. You can
-read the [getting
-started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
+read the [getting started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
 document for more help.
 
-This tutorial is inspired by
-http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb
+This tutorial is aimed to help people to use kamailio in front of xivo (version min. 16.10). I'm
+considering your XiVO is already installed or you following the getting started in the xivo documentation.
 
-I will be using docker to install kamailio because it's simple to use and fun to
+This tutorial is inspired by http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb.
+
+I'm using docker to install kamailio because it's simple to use and funny to
 work with :)
-
-(please do not install docker on a XiVO because wheezy does not
-support a kernel version that is recent enough)
 
 Kamailio installation
 ---------------------
 
-As of this writing the latest version of kamalio is 4.2.4. Start by pulling
-the latest version from the docker registry
+The kamailio version is : 4.4.2
 
     docker pull quintana/kamailio
 
-Create a directory and download a few config files
+Clone the repository to get the configuration for the kamailio.
 
-    mkdir -p ~/kamailio/conf
-    cd ~/kamailio/conf
-    wget https://raw.githubusercontent.com/sboily/config/master/kamailio/kamailio.cfg
-    wget https://raw.githubusercontent.com/sboily/config/master/kamailio/pgpass
-    wget https://raw.githubusercontent.com/sboily/config/master/kamailio/init.sh
-    chmod +x init.sh
+    git clone https://github.com/sboily/kamailio-xivo
 
-Change the postgres password on your XiVO
+Connect to your postgres with xivo database.
 
     su - postgres
     psql
@@ -42,13 +34,9 @@ be the same as your xivo. The default port for postgres is 5432.
 
     <postgres_ip>:<postgres_port>:*:postgres:<postgres_password>
 
-Chmod the pgpass file to 600
+Launch kamailio
 
-    chmod 600 pgpass
-
-Launch a new container with a terminal for further steps
-
-    cd ~/kamailio/conf
+    cd <kamailio_xivo_repo>/kamailio/
     docker run --name kamailio -v $(pwd)/pgpass:/root/.pgpass -v $(pwd):/etc/kamailio -p 5060:5060/udp -it quintana/kamailio bash
 
 Before running kamailio for the first time you need to initialize the database.
@@ -59,7 +47,7 @@ inside a docker container by running:
 
 Or, if you are outside of the container:
 
-    docker inspect kamailio | grep IPAddress | awk -F\" '{print $4}'
+    docker inspect --format '{{ .NetworkSettings.IPAddress }}' kamailio
 
 Then launch the init.sh inside of the container
 
@@ -73,27 +61,22 @@ Then further launches can be run with:
 XiVO configuration
 ------------------
 
-When using kamailio we need to disable SIP authentication challenges. In
-asterisk, this is accomplished by omitting the 'secret' of a user. On XiVO,
-xivo-confgend is in charge of generating secrets, so we will need to hack it
-a bit and add 'secret' to the list of values to ignore.
+We need to removed the SIP challenge, so to do this asterisk check if you have a
+secret to your user. On XiVO the daemon xivo-confgend is in charge to generate
+the asterisk configuration. 
 
-As of this writing, the ignore list can be found in
-```/usr/share/pyshared/xivo_confgen/generators/sip.py``` around line 96 in the
-method _gen_user(). You need to add 'secret' to the list as follows:
+You need to use my specific driver who removed the secret generation from
+xivo-confgend.
 
-        sip_unused_values = (
-            'id', 'name', 'protocol',
-            'category', 'commented', 'initialized',
-            'disallow', 'regseconds', 'lastms',
-            'name', 'fullcontact', 'ipaddr', 'number', 'secret'
-        )
+Go to xivo/confgend and type:
+
+    python setup.py install
+    cp conf/kamailio.yml /etc/xivo-confgend/conf.d
 
 Then restart the daemon and reload the SIP config in asterisk
 
-    service xivo-confgend restart
-    asterisk -r
-    CLI> sip reload
+    systemctl restart xivo-confgend
+    asterisk -rx "sip reload"
 
 After that go to the web interface and secure your access. Go to general
 settings/sip protocol in the network tab. Fill in the denied address with
