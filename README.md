@@ -1,10 +1,7 @@
-This tutorial will guide you on how to install and use kamailio in front of a
-XiVO server.  Please have a XiVO installed and ready before starting. You can
-read the [getting started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
-document for more help.
-
-This tutorial is aimed to help people to use kamailio in front of xivo (version min. 16.10). I'm
-considering your XiVO is already installed or you following the getting started in the xivo documentation.
+This tutorial is aimed to help people to use kamailio in front of xivo (version min. 16.10).
+You can read the [getting
+started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
+for more help to install xivo.
 
 This tutorial is inspired by http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb.
 
