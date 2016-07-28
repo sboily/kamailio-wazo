@@ -6,7 +6,7 @@ for more help to install xivo.
 This tutorial is inspired by http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb.
 
 I'm using docker to install kamailio because it's simple to use and funny to
-work with :)
+work with it :-)
 
 Kamailio installation
 ---------------------
