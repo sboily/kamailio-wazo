@@ -11,7 +11,7 @@ work with it :-)
 Kamailio installation
 ---------------------
 
-The kamailio version is : 4.4.2
+The kamailio version is : 4.4.5
 
     docker pull quintana/kamailio
 
