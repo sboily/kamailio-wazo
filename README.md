@@ -67,7 +67,7 @@ the asterisk configuration.
 You need to use my specific driver who removed the secret generation from
 xivo-confgend.
 
-Copy xivo/confgend directory to your xivo and type:
+Copy xivo/confgend directory to your wazo and type:
 
     python setup.py install
     cp conf/kamailio.yml /etc/xivo-confgend/conf.d
