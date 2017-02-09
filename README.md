@@ -1,7 +1,7 @@
-This tutorial is aimed to help people to use kamailio in front of xivo (version min. 16.10).
+This tutorial is aimed to help people to use kamailio in front of wazo (version min. 17.02).
 You can read the [getting
-started](http://documentation.xivo.io/en/stable/getting_started/getting_started.html)
-for more help to install xivo.
+started](http://documentation.wazo.community/en/stable/getting_started/getting_started.html)
+for more help to install wazo.
 
 This tutorial is inspired by http://kb.asipto.com/asterisk:realtime:kamailio-4.0.x-asterisk-11.3.0-astdb.
 
@@ -17,7 +17,7 @@ The kamailio version is : 4.4.2
 
 Clone the repository to get the configuration for the kamailio.
 
-    git clone https://github.com/sboily/kamailio-xivo
+    git clone https://github.com/sboily/kamailio-wazo
 
 Connect to your postgres with xivo database.
 
@@ -29,7 +29,7 @@ Connect to your postgres with xivo database.
 Add your subnet or ip to the file /etc/postgresql/9.4/main/pg_hba.conf.
 
 Edit the pgpass file add the following line. In most cases, the IP address will
-be the same as your xivo. The default port for postgres is 5432.
+be the same as your wazo. The default port for postgres is 5432.
 
     <postgres_ip>:<postgres_port>:*:postgres:<postgres_password>
 
@@ -57,11 +57,11 @@ Then further launches can be run with:
 
     kamailio -ddDDe
 
-XiVO configuration
+Wazo configuration
 ------------------
 
 We need to removed the SIP challenge, so to do this asterisk check if you have a
-secret to your user. On XiVO the daemon xivo-confgend is in charge to generate
+secret to your user. On Wazo the daemon xivo-confgend is in charge to generate
 the asterisk configuration. 
 
 You need to use my specific driver who removed the secret generation from
@@ -86,6 +86,6 @@ forget to enable NAT in the default tab.
 Provisioning your phone
 -----------------------
 
-If you want to use XiVO provd, don't forget to add a new template line in the
+If you want to use Wazo provd, don't forget to add a new template line in the
 Configuration/Provisioning/Template Line with the IP of your kamailio
 installation.
