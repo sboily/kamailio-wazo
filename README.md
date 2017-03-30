@@ -98,3 +98,4 @@ To uninstall the driver
     apt-get install python-pip
     pip uninstall wazo_confgend_driver_kamailio
     rm /etc/xivo-confgend/conf.d/kamailio.yml
+    systemctl restart xivo-confgend
