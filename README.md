@@ -89,3 +89,12 @@ Provisioning your phone
 If you want to use Wazo provd, don't forget to add a new template line in the
 Configuration/Provisioning/Template Line with the IP of your kamailio
 installation.
+
+Uninstall
+---------
+
+To uninstall the driver
+
+    apt-get install python-pip
+    pip uninstall wazo_confgend_driver_kamailio
+    rm /etc/xivo-confgend/conf.d/kamailio.yml

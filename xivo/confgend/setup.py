@@ -8,7 +8,7 @@ from setuptools import find_packages
 
 
 setup(
-    name='XiVO confgend kamailio SIP',
+    name='wazo_confgend_driver_kamailio',
     version='0.0.1',
 
     description='Driver for connect Wazo and Kamailio',
